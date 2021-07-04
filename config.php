@@ -2,11 +2,11 @@
 
   class Config {
     private const DBHOST = 'localhost';
-    private const DBUSER = 'root';
-    private const DBPASS = '';
+    private const DBUSER = 'postgres';
+    private const DBPASS = 'postgres';
     private const DBNAME = 'fetch_crud_app';
 
-    private $dsn = 'mysql:host=' . self::DBHOST . ';dbname=' . self::DBNAME . '';
+    private $dsn = 'pgsql:host=' . self::DBHOST . ';dbname=' . self::DBNAME . '';
 
     protected $conn = null;
 

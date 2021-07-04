@@ -1,9 +1,9 @@
 <?php
 
-  require_once 'db.php';
+  require_once 'user.php';
   require_once 'util.php';
 
-  $db = new Database;
+  $user = new User;
   $util = new Util;
 
   // Handle Add New User Ajax Request
@@ -13,7 +13,7 @@
     $email = $util->testInput($_POST['email']);
     $phone = $util->testInput($_POST['phone']);
 
-    if ($db->insert($fname, $lname, $email, $phone)) {
+    if ($user->insert($fname, $lname, $email, $phone)) {
       echo $util->showMessage('success', 'Usuario insertado correctamente');
     } else {
       echo $util->showMessage('danger', 'Something went wrong!');
@@ -22,7 +22,7 @@
 
   // Handle Fetch All Users Ajax Request
   if (isset($_GET['read'])) {
-    $users = $db->read();
+    $users = $user->read();
     $output = '';
     if ($users) {
       foreach ($users as $row) {
@@ -33,9 +33,9 @@
                       <td>' . $row['email'] . '</td>
                       <td>' . $row['phone'] . '</td>
                       <td>
-                        <a href="#" id="' . $row['id'] . '" class="btn btn-success btn-sm rounded-pill py-0 editLink" data-toggle="modal" data-target="#editUserModal">Edit</a>
+                        <a href="#" id="' . $row['id'] . '" class="btn btn-success btn-sm rounded py-0 editLink" data-bs-toggle="modal" data-bs-target="#editUserModal">Editar</a>
 
-                        <a href="#" id="' . $row['id'] . '" class="btn btn-danger btn-sm rounded-pill py-0 deleteLink">Delete</a>
+                        <a href="#" id="' . $row['id'] . '" class="btn btn-danger btn-sm rounded py-0 deleteLink">Eliminar</a>
                       </td>
                     </tr>';
       }
@@ -51,7 +51,7 @@
   if (isset($_GET['edit'])) {
     $id = $_GET['id'];
 
-    $user = $db->readOne($id);
+    $user = $user->readOne($id);
     echo json_encode($user);
   }
 
@@ -63,7 +63,7 @@
     $email = $util->testInput($_POST['email']);
     $phone = $util->testInput($_POST['phone']);
 
-    if ($db->update($id, $fname, $lname, $email, $phone)) {
+    if ($user->update($id, $fname, $lname, $email, $phone)) {
       echo $util->showMessage('success', 'Usuario actualizado correctamente');
     } else {
       echo $util->showMessage('danger', 'Something went wrong!');
@@ -73,7 +73,7 @@
   // Handle Delete User Ajax Request
   if (isset($_GET['delete'])) {
     $id = $_GET['id'];
-    if ($db->delete($id)) {
+    if ($user->delete($id)) {
       echo $util->showMessage('info', 'Usuario eliminado satisfactoriamente');
     } else {
       echo $util->showMessage('danger', 'Something went wrong!');

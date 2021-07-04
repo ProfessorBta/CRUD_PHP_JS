@@ -42,6 +42,7 @@ const fetchAllUsers = async () => {
   const response = await data.text();
   tbody.innerHTML = response;
 };
+
 fetchAllUsers();
 
 // Edit User Ajax Request

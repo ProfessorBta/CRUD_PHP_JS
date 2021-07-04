@@ -2,7 +2,7 @@
 
   require_once 'config.php';
 
-  class Database extends Config {
+  class User extends Config {
     // Insert User Into Database
     public function insert($fname, $lname, $email, $phone) {
       $sql = 'INSERT INTO users (first_name, last_name, email, phone) VALUES (:fname, :lname, :email, :phone)';
